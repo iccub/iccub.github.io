@@ -9,8 +9,8 @@ relative_permalinks: false
 # Setup
 title:            Michał Buczek
 tagline:          'iOS/Swift freelancer'
-description:      'A brazen two-column <a href="http://jekyllrb.com" target="_blank">Jekyll</a> theme that pairs a prominent sidebar with uncomplicated content. Made by <a href="https://twitter.com/mdo" target="_blank">@mdo</a>.'
-url:              http://hyde.getpoole.com
+description:      'I'm an iOS/Swift developer and Football Freestyler. Living in Poland. This site is my porfolio and technical blog(soon)'
+url:              http://michalbuczek.com
 baseurl:          /
 
 author:
