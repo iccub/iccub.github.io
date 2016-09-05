@@ -1,214 +1,37 @@
-<!DOCTYPE HTML>
-<!--
-	Miniport by HTML5 UP
-	html5up.net | @n33co
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
-<html>
-	<head>
-		<title>Michał Buczek - iOS Swift/Android Freelance Developer, Football Freestyler</title>
-		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-		<meta name="description" content="" />
-		<meta name="keywords" content="" />
-		<!--[if lte IE 8]><script src="css/ie/html5shiv.js"></script><![endif]-->
-		<script src="js/jquery.min.js"></script>
-		<script src="js/jquery.scrolly.min.js"></script>
-		<script src="js/skel.min.js"></script>
-		<script src="js/init.js"></script>
-		<noscript>
-			<link rel="stylesheet" href="css/skel.css" />
-			<link rel="stylesheet" href="css/style.css" />
-			<link rel="stylesheet" href="css/style-desktop.css" />
-		</noscript>
-		<!--[if lte IE 8]><link rel="stylesheet" href="css/ie/v8.css" /><![endif]-->
-		<!--[if lte IE 9]><link rel="stylesheet" href="css/ie/v9.css" /><![endif]-->
-	</head>
-	<body>
+---
+layout: default
+title: Home
+---
 
-		<!-- Nav -->
-			<nav id="nav">
-				<ul class="container">
-					<li><a href="#top">Top</a></li>
-					<li><a href="#work">Skills</a></li>
-					<li><a href="#portfolio">Portfolio</a></li>
-					<li><a href="#contact">Contact</a></li>
-				</ul>
-			</nav>
+<div class="posts">
+  {% for post in paginator.posts %}
+  <div class="post">
+    <h1 class="post-title">
+      <a href="{{ post.url }}">
+        {{ post.title }}
+      </a>
+    </h1>
 
-		<!-- Home -->
-			<div class="wrapper style1 first">
-				<article class="container" id="top">
-					<div class="row">
-						<div class="4u">
-							<span class="image fit"><img src="images/profilowe.jpg" alt="" /></span>
-						</div>
-						<div class="8u">
-							<header>
-								<h1>Hi. I'm <strong>Michał Buczek</strong>.</h1>
+    <span class="post-date">{{ post.date | date_to_string }}</span>
 
-							</header>
-							<p>I'm freelance iOS Swift/Android developer and professional football freestyler from Poland,
-								 founder of  <a href="http://qfcfreestyle.com" target="_blank">Quite Fantastic Crew</a>. Welcome to my page</p>
-							<a href="#work" class="button big scrolly">Learn about what I do</a>
-						</div>
-					</div>
-				</article>
-			</div>
+    {{ post.content }}
+  </div>
+  {% endfor %}
+</div>
 
-		<!-- Work -->
-			<div class="wrapper style2">
-				<article id="work">
-					<header>
-						<h2>See what I can offer to you.</h2>
-						<p>Everybody is a genius. But if you judge a fish by its ability to climb a tree, it will live its whole life believing that it is stupid. <br>~A.Einstein</p>
-					</header>
-					<div class="container">
-						<div class="row">
-							<div class="4u">
-								<section class="box style1">
-									<span class="icon android fa-android"></span>
-									<h3>Android Development</h3>
-									<p>I make a living creating native android apps. This includes ui prototyping , UX design, implementation, testing</p>
-								</section>
-							</div>
-							<div class="4u">
-								<section class="box style1">
-									<span class="icon apple fa-coffee"></span>
-									<h3>Java/GWT</h3>
-									<p>I have commercial experience with java in enterprise environment on workflow/callcenter systems</p>
-								</section>
-							</div>
-							<div class="4u">
-								<section class="box style1">
-									<span class="icon freestyle fa-soccer-ball-o"></span>
-									<h3>Freestyle Football shows</h3>
-									<p>Live performances, freestyle workshops, sponsorships, advertisments. Working solo or with my <a href="http://qfcrew.pl" target="_blank">team</a></p>
-								</section>
-							</div>
-						</div>
-					</div>
-					<footer>
-						<p>Interested in examples of my projects?</p>
-						<a href="#portfolio" class="button big scrolly">See some of my recent work</a>
-					</footer>
-				</article>
-			</div>
-
-		<!-- Portfolio -->
-			<div class="wrapper style3">
-				<article id="portfolio">
-					<header>
-						<h2>Here’s some stuff I'm proud of.</h2>
-						<p>Aim for the moon. If you miss, you may hit a star.<br>~W. Clement Stone</p>
-					</header>
-					<div class="container">
-						<div class="row">
-							<div class="4u">
-								<article class="box style2">
-									<a href="https://play.google.com/store/apps/details?id=bucci.dev.freestyle" class="image featured" target="_blank"><img src="images/p1.png" alt="" /></a>
-									<h3><a href="https://play.google.com/store/apps/details?id=bucci.dev.freestyle" target="_blank">Freestyle Timer</a></h3>
-									<p>Open source app which helps with preparing for tournaments.
-										It combines timer with custom music and horn sound reminders to simulate real battles,
-										 or qualification environment
-									</p>
-								</article>
-							</div>
-							<div class="4u">
-								<article class="box style2">
-									<a href="https://play.google.com/store/apps/details?id=pl.bucci.dev.slownik.rymow" class="image featured" target="_blank"><img src="images/p2.png" alt="" /></a>
-									<h3><a href="https://play.google.com/store/apps/details?id=pl.bucci.dev.slownik.rymow" target="_blank">Rhyme Finder</a></h3>
-									<p>Simple app with php backend. It uses two different search algorithms.
-										and shows word description after you click result word. Developed specifically for polish language </p>
-								</article>
-							</div>
-							<div class="4u">
-								<article class="box style2">
-									<a href="https://www.youtube.com/watch?v=aO6Ce8B70_Q" class="image featured" target="_blank"><img src="images/p3.png" alt="" /></a>
-									<h3><a href="https://www.youtube.com/watch?v=aO6Ce8B70_Q" target="_blank">My freestyle skills</a></h3>
-									<p>3-minute clip showing my allround skills with a football.
-										Recorded in 2013 in my home city and edited by me using Lightworks. Watch it on my youtube channel
-										 </p>
-								</article>
-							</div>
-						</div>
-
-					<footer>
-						<p>Any questions to me, programmer-athlete hybrid? :)</p>
-						<a href="#contact" class="button big scrolly">Get in touch with me</a>
-					</footer>
-				</article>
-			</div>
-
-		<!-- Contact -->
-			<div class="wrapper style4">
-				<article id="contact" class="container small">
-					<header>
-						<h2>Have me make stuff for you.</h2>
-						<p>Click <a href="mailto:michal@michalbuczek.com">here</a> for standard email or use contact form below</p>
-					</header>
-					<div>
-						<div class="row">
-							<div class="12u">
-								<form action="http://formspree.io/michal@michalbuczek.com" method="post">
-									<div>
-										<div class="row">
-											<div class="6u">
-												<input type="text" name="name" id="name" placeholder="Name" />
-											</div>
-											<div class="6u">
-												<input type="email" name="_replyto" id="email" placeholder="Email" />
-											</div>
-										</div>
-										<div class="row">
-											<div class="12u">
-												<input type="text" name="subject" id="subject" placeholder="Subject" />
-											</div>
-										</div>
-										<div class="row">
-											<div class="12u">
-												<textarea name="message" id="message" placeholder="Message"></textarea>
-											</div>
-										</div>
-										<div class="row double">
-											<div class="12u">
-												<ul class="actions">
-													<li><input type="submit" value="Send Message" /></li>
-													<li><input type="reset" value="Clear Form" class="alt" /></li>
-												</ul>
-											</div>
-										</div>
-									</div>
-								</form>
-							</div>
-						</div>
-						<div class="row">
-							<div class="12u">
-								<hr />
-								<h3>Find me on ...</h3>
-								<ul class="social">
-									<li><a href="https://www.linkedin.com/in/michalbuczek" class="icon fa-linkedin" target="_blank"><span class="label">LinkedIn</span></a></li>
-									<li><a href="https://github.com/iccub" class="icon fa-github" target="_blank"><span class="label">Github</span></a></li>
-									<li><a href="https://www.youtube.com/user/michalbu" class="icon fa-youtube" target="_blank"><span class="label">Twitter</span></a></li>
-									<li><a href="https://www.facebook.com/bucci.ff" class="icon fa-facebook" target="_blank"><span class="label">Facebook</span></a></li>
-									<li><a href="instagram.com/buccifreestyle" class="icon fa-instagram" target="_blank"><span class="label">Instagram</span></a></li>
-									<!--
-									<li><a href="#" class="icon fa-rss"><span>RSS</span></a></li>
-									<li><a href="#" class="icon fa-instagram"><span>Instagram</span></a></li>
-									<li><a href="#" class="icon fa-foursquare"><span>Foursquare</span></a></li>
-									<li><a href="#" class="icon fa-skype"><span>Skype</span></a></li>
-									<li><a href="#" class="icon fa-soundcloud"><span>Soundcloud</span></a></li>
-									<li><a href="#" class="icon fa-youtube"><span>YouTube</span></a></li>
-									<li><a href="#" class="icon fa-blogger"><span>Blogger</span></a></li>
-									<li><a href="#" class="icon fa-flickr"><span>Flickr</span></a></li>
-									<li><a href="#" class="icon fa-vimeo"><span>Vimeo</span></a></li>
-									-->
-								</ul>
-								<hr />
-							</div>
-						</div>
-					</div>
-				</article>
-			</div>
-
-	</body>
-</html>
+<div class="pagination">
+  {% if paginator.next_page %}
+    <a class="pagination-item older" href="{{ site.baseurl }}page{{paginator.next_page}}">Older</a>
+  {% else %}
+    <span class="pagination-item older">Older</span>
+  {% endif %}
+  {% if paginator.previous_page %}
+    {% if paginator.page == 2 %}
+      <a class="pagination-item newer" href="{{ site.baseurl }}">Newer</a>
+    {% else %}
+      <a class="pagination-item newer" href="{{ site.baseurl }}page{{paginator.previous_page}}">Newer</a>
+    {% endif %}
+  {% else %}
+    <span class="pagination-item newer">Newer</span>
+  {% endif %}
+</div>
