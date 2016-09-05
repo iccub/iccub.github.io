@@ -9,7 +9,7 @@ relative_permalinks: false
 # Setup
 title:            Michał Buczek
 tagline:          'iOS/Swift freelancer'
-description:      'I\'m an iOS/Swift developer and Football Freestyler. Living in Poland. This site is my porfolio and technical blog(soon)'
+description:      'iOS/Swift developer and Football Freestyler. Living in Poland. This site is my porfolio and technical blog(soon)'
 url:              http://michalbuczek.com
 baseurl:          /
 
