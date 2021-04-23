@@ -18,7 +18,7 @@ self.addEventListener('install', function(event) {
 });
 
 self.addEventListener('activate', function(event) {
-  console.log.log("active called");
+  console.log("active called");
 });
 
 self.addEventListener('fetch', function(event) {
