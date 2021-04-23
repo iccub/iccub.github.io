@@ -73,7 +73,7 @@ self.addEventListener('message', function(event){
   console.log("SW Received Message: " + event.data);
 });
 
-function clientPostMessage(client, message){
+function clientPostMessage(client, message) {
   return new Promise(function(resolve, reject){
       var channel = new MessageChannel();
 
