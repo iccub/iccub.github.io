@@ -1,5 +1,5 @@
 self.addEventListener('install', function(event) {
-  console("install called");
+  console.log("install called");
   event.waitUntil(
     caches.open('v1').then(function(cache) {
       return cache.addAll([
@@ -18,14 +18,14 @@ self.addEventListener('install', function(event) {
 });
 
 self.addEventListener('activate', function(event) {
-  console("active called");
+  console.log.log("active called");
 });
 
 self.addEventListener('fetch', function(event) {
   event.respondWith(caches.match(event.request).then(function(response) {
     // caches.match() always resolves
     // but in case of success response will have value
-    console("fetch called");
+    console.log("fetch called");
     if (response !== undefined) {
       return response;
     } else {
