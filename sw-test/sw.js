@@ -26,6 +26,29 @@ self.addEventListener('fetch', function(event) {
     // caches.match() always resolves
     // but in case of success response will have value
     console.log("fetch called");
+    
+// Get all the clients, and for each post a message
+clients.matchAll().then(clients => {
+  clients.forEach(client => {
+      // Post "addAll" to get a list of files to cache
+      clientPostMessage(client, "Hello Brave").then(message => {
+          // For each file, check if it already exists in the cache
+          message.forEach(url => {
+              caches.match(url).then(result => {
+                  // If there's nothing in the cache, fetch the file and cache it
+                  if(!result) {
+                      fetch(url).then(response => {
+                          caches.open(cacheName).then(cache => {
+                              cache.put(url, response);
+                          });
+                      });
+                  }
+              })
+          });
+      });
+  })
+});
+
     if (response !== undefined) {
       return response;
     } else {
@@ -45,3 +68,24 @@ self.addEventListener('fetch', function(event) {
     }
   }));
 });
+
+self.addEventListener('message', function(event){
+  console.log("SW Received Message: " + event.data);
+});
+
+function clientPostMessage(client, message){
+  return new Promise(function(resolve, reject){
+      var channel = new MessageChannel();
+
+      channel.port1.onmessage = function(event){
+          if(event.data.error){
+              reject(event.data.error);
+          }
+          else {
+              resolve(event.data);
+          }
+      };
+
+      client.postMessage(message, [channel.port2]);
+  });
+};
