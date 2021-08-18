@@ -1,1 +1,111 @@
-Hello
+<!DOCTYPE html>
+
+
+<html>
+
+<head>
+        <link rel="search" type="application/opensearchdescription+xml" title="Brave Search" href="https://cdn.search-dev.brave.com/serp/v1/static/brand/f4bb15cffff65f80e06a50c124e20e69e380cd34dc4b15f8e6fed4915eae331a-opensearch.xml">
+</head>
+
+<br>
+<button onclick="isBraveCheck()">
+    Is Brave?
+</button>
+<br>
+IsBrave: <div id="brave", style="display: inline;">?</div>
+<br><br><br>
+
+<button onclick="searchBackup()">
+    Search backup test
+</button>
+<br>
+Search backup result:
+<div id="backup">.</div>
+
+<br>
+<button onclick="isBraveSearchDefault()">
+    Is Default?
+</button>
+<br>
+Is Default? <div id="isDefault", style="display: inline;">?</div>
+<br>
+
+<br>
+<button onclick="setBraveSearchDefault()">
+    Set Default
+</button>
+<br>
+Set Default: <div id="setDefault", style="display: inline;">?</div>
+<br><br><br>
+
+<br>
+<button onclick="braveRequestAdsEnabled()">
+    Request ads enabled
+</button>
+<br>
+Request Ads Enabled: <div id="adsEnabled", style="display: inline;">?</div>
+<br><br><br>
+
+<script>
+    async function searchBackup() {
+        try {
+            const result = await window.chrome.fetchBackupResults('brave browser', 'en', 'us', 'US')
+            document.getElementById("backup").innerHTML = result;
+        } catch(error) {
+            document.getElementById("backup").innerHTML = error;
+        }
+    }
+
+    function searchBackupCallback(htmlString) {
+        // todo: decode from base64
+        //decoded = decodeURIComponent(escape(atob(htmlString)));
+        //decoded = atob(htmlString.replace(/\s/g, ''));
+        decoded = htmlString;
+
+        document.getElementById("backup").innerHTML = decoded;
+    }
+
+    async function isBraveCheck() {
+        try {
+            const isBrave = await navigator.brave.isBrave();
+            document.getElementById("brave").innerHTML = isBrave;
+        } catch(error) {
+            document.getElementById("brave").innerHTML = error;
+        }
+    }
+
+    async function isBraveSearchDefault() {
+        try {
+            const isDefault = await window.brave.getCanSetDefaultSearchProvider();
+            document.getElementById("isDefault").innerHTML = isDefault;
+        } catch(error) {
+            document.getElementById("isDefault").innerHTML = error;
+        }
+    }
+
+    async function setBraveSearchDefault() {
+        try {
+            const result = await window.brave.setIsDefaultSearchProvider();
+            document.getElementById("setDefault").innerHTML = "promise resolved";
+        } catch(error) {
+            document.getElementById("setDefault").innerHTML = error;
+        }
+    }
+
+    async function braveRequestAdsEnabled() {
+        try {
+            const result = await window.chrome.braveRequestAdsEnabled();
+            document.getElementById("adsEnabled").innerHTML = result;
+        } catch(error) {
+            document.getElementById("adsEnabled").innerHTML = error;
+        }
+    }
+</script>
+
+<style>
+    button {
+        font-size: 24px;
+    }
+</style>
+
+</html>
