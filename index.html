@@ -7,6 +7,8 @@
         <link rel="search" type="application/opensearchdescription+xml" title="Brave Search" href="https://cdn.search-dev.brave.com/serp/v1/static/brand/f4bb15cffff65f80e06a50c124e20e69e380cd34dc4b15f8e6fed4915eae331a-opensearch.xml">
 </head>
 
+<h3>General</h3>
+
 <br>
 <button onclick="isBraveCheck()">
     Is Brave?
@@ -14,6 +16,8 @@
 <br>
 IsBrave: <div id="brave", style="display: inline;">?</div>
 <br><br><br>
+
+<h3>Search</h3>
 
 <button onclick="searchBackup()">
     Search backup test
@@ -38,12 +42,48 @@ Is Default? <div id="isDefault", style="display: inline;">?</div>
 Set Default: <div id="setDefault", style="display: inline;">?</div>
 <br><br><br>
 
+<h3>Talk</h3>
+
 <br>
 <button onclick="braveRequestAdsEnabled()">
     Request ads enabled
 </button>
 <br>
 Request Ads Enabled: <div id="adsEnabled", style="display: inline;">?</div>
+<br><br><br>
+
+<h3>VPN</h3>
+
+<br>
+<button onclick="vpnRefreshOrder()">
+    refresh_order
+</button>
+<br>
+Response: <div id="refresh_order", style="display: inline;">?</div>
+<br><br><br>
+
+<br>
+<button onclick="vpnFetchOrderCredentials()">
+    fetch_order_credentials
+</button>
+<br>
+Response: <div id="fetch_order_credentials", style="display: inline;">?</div>
+<br><br><br>
+
+<br>
+<button onclick="vpnPrepareCredentialsPresentation()">
+    prepare_credentials_presentation
+</button>
+<br>
+Response: <div id="prepare_credentials_presentation", style="display: inline;">?</div>
+<br><br><br>
+
+<br>
+<button onclick="vpnCredentialSummary()">
+    credential_summary
+</button>
+<br>
+Response: <div id="credential_summary", style="display: inline;">?</div>
 <br><br><br>
 
 <script>
@@ -100,6 +140,43 @@ Request Ads Enabled: <div id="adsEnabled", style="display: inline;">?</div>
             document.getElementById("adsEnabled").innerHTML = error;
         }
     }
+
+    async function vpnRefreshOrder() {
+        try {
+            const result = await window.chrome.braveSkus.refresh_order('0ee1e3ee-afc3-4f2f-b2a2-3d1e401e1530');
+            document.getElementById("refresh_order").innerHTML = result;
+        } catch(error) {
+            document.getElementById("refresh_order").innerHTML = error;
+        }
+    }
+
+    async function vpnFetchOrderCredentials() {
+        try {
+            const result = await window.chrome.braveSkus.fetch_order_credentials('0ee1e3ee-afc3-4f2f-b2a2-3d1e401e1530');
+            document.getElementById("fetch_order_credentials").innerHTML = result;
+        } catch(error) {
+            document.getElementById("fetch_order_credentials").innerHTML = error;
+        }
+    }
+
+    async function vpnPrepareCredentialsPresentation() {
+        try {
+            const result = await window.chrome.braveSkus.prepare_credentials_presentation('0ee1e3ee-afc3-4f2f-b2a2-3d1e401e1530');
+            document.getElementById("prepare_credentials_presentation").innerHTML = result;
+        } catch(error) {
+            document.getElementById("prepare_credentials_presentation").innerHTML = error;
+        }
+    }
+
+    async function vpnCredentialSummary() {
+        try {
+            const result = await window.chrome.braveSkus.credential_summary('0ee1e3ee-afc3-4f2f-b2a2-3d1e401e1530');
+            document.getElementById("credential_summary").innerHTML = result;
+        } catch(error) {
+            document.getElementById("credential_summary").innerHTML = error;
+        }
+    }
+    
 </script>
 
 <style>
