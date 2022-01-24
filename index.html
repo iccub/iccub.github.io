@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 
@@ -161,7 +162,7 @@ Response: <div id="credential_summary", style="display: inline;">?</div>
 
     async function vpnPrepareCredentialsPresentation() {
         try {
-            const result = await window.chrome.braveSkus.prepare_credentials_presentation('0ee1e3ee-afc3-4f2f-b2a2-3d1e401e1530');
+            const result = await window.chrome.braveSkus.prepare_credentials_presentation('vpn.brave.software', "*");
             document.getElementById("prepare_credentials_presentation").innerHTML = result;
         } catch(error) {
             document.getElementById("prepare_credentials_presentation").innerHTML = error;
@@ -170,7 +171,7 @@ Response: <div id="credential_summary", style="display: inline;">?</div>
 
     async function vpnCredentialSummary() {
         try {
-            const result = await window.chrome.braveSkus.credential_summary('0ee1e3ee-afc3-4f2f-b2a2-3d1e401e1530');
+            const result = await window.chrome.braveSkus.credential_summary('vpn.brave.software');
             document.getElementById("credential_summary").innerHTML = result;
         } catch(error) {
             document.getElementById("credential_summary").innerHTML = error;
