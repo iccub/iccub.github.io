@@ -144,7 +144,7 @@ Response: <div id="credential_summary", style="display: inline;">?</div>
 
     async function vpnRefreshOrder() {
         try {
-            const result = await window.chrome.braveSkus.refresh_order('0ee1e3ee-afc3-4f2f-b2a2-3d1e401e1530');
+            const result = await window.chrome.braveSkus.refresh_order('3edc1326-5dfb-4ead-ab5d-96d4a29a0d24');
             document.getElementById("refresh_order").innerHTML = result;
         } catch(error) {
             document.getElementById("refresh_order").innerHTML = error;
@@ -153,7 +153,7 @@ Response: <div id="credential_summary", style="display: inline;">?</div>
 
     async function vpnFetchOrderCredentials() {
         try {
-            const result = await window.chrome.braveSkus.fetch_order_credentials('0ee1e3ee-afc3-4f2f-b2a2-3d1e401e1530');
+            const result = await window.chrome.braveSkus.fetch_order_credentials('3edc1326-5dfb-4ead-ab5d-96d4a29a0d24');
             document.getElementById("fetch_order_credentials").innerHTML = result;
         } catch(error) {
             document.getElementById("fetch_order_credentials").innerHTML = error;
