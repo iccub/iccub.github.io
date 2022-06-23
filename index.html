@@ -187,7 +187,7 @@ Response: <div id="vpn_receipt", style="display: inline;">?</div>
 
     async function vpnReceipt() {
         try {
-            const result = atob(window.chrome.braveVpn.receipt());
+            const result = JSON.parse(atob(window.chrome.braveVpn.receipt()));
             let platform = result.type;
             let blob = result.raw_receipt;
 
