@@ -186,15 +186,8 @@ Response: <div id="vpn_receipt", style="display: inline;">?</div>
     }
 
     async function vpnReceipt() {
-        try {
-            const result = JSON.parse(atob(window.chrome.braveVpn.receipt()));
-            let platform = result.type;
-            let blob = result.raw_receipt;
-
-            document.getElementById("vpn_receipt").innerHTML = blob;
-        } catch(error) {
-            document.getElementById("vpn_receipt").innerHTML = error;
-        }
+        let receipt = sessionStorage.getItem('braveVpn.receipt');
+        document.getElementById("vpn_receipt").innerHTML = receipt;
     }
     
 </script>
