@@ -8,7 +8,7 @@ IsBrave iFrame: <div id="brave", style="display: inline;">?</div>
 <br><br><br>
 
 <script type="text/javascript">
-    async function isBraveCheck() {
+    async function isBraveIFrameCheck() {
         try {
             const isBrave = await navigator.brave.isBrave();
             document.getElementById("brave").innerHTML = isBrave;
