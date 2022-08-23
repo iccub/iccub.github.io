@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+
+<button onclick="isBraveIFrameCheck()">
+    Is Brave iFrame?
+</button>
+<br>
+IsBrave iFrame: <div id="brave", style="display: inline;">?</div>
+<br><br><br>
+
+async function isBraveCheck() {
+        try {
+            const isBrave = await navigator.brave.isBrave();
+            document.getElementById("brave").innerHTML = isBrave;
+        } catch(error) {
+            document.getElementById("brave").innerHTML = error;
+        }
+    }
