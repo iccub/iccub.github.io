@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subframe API Test</title>
+</head>
+<body>
+    <h1>Subframe API Test</h1>
+    <p>This subframe makes API calls to test the injected script behavior.</p>
+
+    <script>
+        // Subframe API calls for testing
+
+        // Test Function.prototype.apply with String.fromCharCode
+        console.log("Subframe: Testing String.fromCharCode.apply with a large array...");
+        const largeArray = new Array(5000).fill(65);
+        try {
+            const result = String.fromCharCode.apply(null, largeArray);
+            console.log("Subframe: String.fromCharCode result:", result.slice(0, 50) + "...");
+        } catch (error) {
+            console.error("Subframe: Error in String.fromCharCode.apply:", error);
+        }
+
+        // Test fetch API
+        console.log("Subframe: Testing fetch API...");
+        fetch("https://jsonplaceholder.typicode.com/todos/3")
+            .then(response => response.json())
+            .then(data => console.log("Subframe: Fetch result:", data))
+            .catch(error => console.error("Subframe: Fetch error:", error));
+
+        // Test XMLHttpRequest
+        console.log("Subframe: Testing XMLHttpRequest...");
+        const xhr = new XMLHttpRequest();
+        xhr.open("GET", "https://jsonplaceholder.typicode.com/todos/4", true);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                console.log("Subframe: XMLHttpRequest result:", JSON.parse(xhr.responseText));
+            }
+        };
+        xhr.send();
+
+        // Test insertRule with CSSStyleSheet
+        console.log("Subframe: Testing CSSStyleSheet.insertRule...");
+        const styleSheet = document.styleSheets[0];
+        styleSheet.insertRule("body { background-color: lightyellow; }", styleSheet.cssRules.length);
+    </script>
+</body>
+</html>
