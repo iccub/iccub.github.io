@@ -1,210 +1,54 @@
 <!DOCTYPE html>
-
-
-<html>
-
+<html lang="en">
 <head>
-        <link rel="search" type="application/opensearchdescription+xml" title="Brave Search" href="https://cdn.search-dev.brave.com/serp/v1/static/brand/f4bb15cffff65f80e06a50c124e20e69e380cd34dc4b15f8e6fed4915eae331a-opensearch.xml">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Test Page</title>
 </head>
-
-<h3>General</h3>
-        
-<a href="https://developer.apple.com/wwdc23/WWDC2023.ics">add to calendar</a>
-<br><br>
-<a href="webcal://developer.apple.com/wwdc23/WWDC2023.ics">add to calendar webcal</a>
-
-<br>
-<button onclick="isBraveCheck()">
-    Is Brave?
-</button>
-<br>
-IsBrave: <div id="brave", style="display: inline;">?</div>
-<br><br><br>
-
-<iframe src="isBrave.html">
-    IsBrave iFrame
-</iframe>
-
-<h3>Search</h3>
-
-<button onclick="searchBackup()">
-    Search backup test
-</button>
-<br>
-Search backup result:
-<div id="backup">.</div>
-
-<br>
-<button onclick="isBraveSearchDefault()">
-    Is Default?
-</button>
-<br>
-Is Default? <div id="isDefault", style="display: inline;">?</div>
-<br>
-
-<br>
-<button onclick="setBraveSearchDefault()">
-    Set Default
-</button>
-<br>
-Set Default: <div id="setDefault", style="display: inline;">?</div>
-<br><br><br>
-
-<h3>Talk</h3>
-
-<br>
-<button onclick="braveRequestAdsEnabled()">
-    Request ads enabled
-</button>
-<br>
-Request Ads Enabled: <div id="adsEnabled", style="display: inline;">?</div>
-<br><br><br>
-
-<h3>VPN</h3>
-
-<br>
-<button onclick="vpnRefreshOrder()">
-    refresh_order
-</button>
-<br>
-Response: <div id="refresh_order", style="display: inline;">?</div>
-<br><br><br>
-
-<br>
-<button onclick="vpnFetchOrderCredentials()">
-    fetch_order_credentials
-</button>
-<br>
-Response: <div id="fetch_order_credentials", style="display: inline;">?</div>
-<br><br><br>
-
-<br>
-<button onclick="vpnPrepareCredentialsPresentation()">
-    prepare_credentials_presentation
-</button>
-<br>
-Response: <div id="prepare_credentials_presentation", style="display: inline;">?</div>
-<br><br><br>
-
-<br>
-<button onclick="vpnCredentialSummary()">
-    credential_summary
-</button>
-<br>
-Response: <div id="credential_summary", style="display: inline;">?</div>
-<br><br><br>
-
-<br>
-<button onclick="vpnReceipt()">
-    receipt
-</button>
-<br>
-Response: <div id="vpn_receipt", style="display: inline;">?</div>
-<br><br><br>
-
-<script>
-    async function searchBackup() {
-        try {
-            const result = await window.chrome.fetchBackupResults('brave browser', 'en', 'us', 'US')
-            document.getElementById("backup").innerHTML = result;
-        } catch(error) {
-            document.getElementById("backup").innerHTML = error;
-        }
-    }
-
-    function searchBackupCallback(htmlString) {
-        // todo: decode from base64
-        //decoded = decodeURIComponent(escape(atob(htmlString)));
-        //decoded = atob(htmlString.replace(/\s/g, ''));
-        decoded = htmlString;
-
-        document.getElementById("backup").innerHTML = decoded;
-    }
-
-    async function isBraveCheck() {
-        try {
-            const isBrave = await navigator.brave.isBrave();
-            document.getElementById("brave").innerHTML = isBrave;
-        } catch(error) {
-            document.getElementById("brave").innerHTML = error;
-        }
-    }
-
-    async function isBraveSearchDefault() {
-        try {
-            const isDefault = await window.brave.getCanSetDefaultSearchProvider();
-            document.getElementById("isDefault").innerHTML = isDefault;
-        } catch(error) {
-            document.getElementById("isDefault").innerHTML = error;
-        }
-    }
-
-    async function setBraveSearchDefault() {
-        try {
-            const result = await window.brave.setIsDefaultSearchProvider();
-            document.getElementById("setDefault").innerHTML = "promise resolved";
-        } catch(error) {
-            document.getElementById("setDefault").innerHTML = error;
-        }
-    }
-
-    async function braveRequestAdsEnabled() {
-        try {
-            const result = await window.chrome.braveRequestAdsEnabled();
-            document.getElementById("adsEnabled").innerHTML = result;
-        } catch(error) {
-            document.getElementById("adsEnabled").innerHTML = error;
-        }
-    }
-
-    async function vpnRefreshOrder() {
-        try {
-            const result = await window.chrome.braveSkus.refresh_order('3edc1326-5dfb-4ead-ab5d-96d4a29a0d24');
-            document.getElementById("refresh_order").innerHTML = result;
-        } catch(error) {
-            document.getElementById("refresh_order").innerHTML = error;
-        }
-    }
-
-    async function vpnFetchOrderCredentials() {
-        try {
-            const result = await window.chrome.braveSkus.fetch_order_credentials('3edc1326-5dfb-4ead-ab5d-96d4a29a0d24');
-            document.getElementById("fetch_order_credentials").innerHTML = result;
-        } catch(error) {
-            document.getElementById("fetch_order_credentials").innerHTML = error;
-        }
-    }
-
-    async function vpnPrepareCredentialsPresentation() {
-        try {
-            const result = await window.chrome.braveSkus.prepare_credentials_presentation('vpn.brave.software', "*");
-            document.getElementById("prepare_credentials_presentation").innerHTML = result;
-        } catch(error) {
-            document.getElementById("prepare_credentials_presentation").innerHTML = error;
-        }
-    }
-
-    async function vpnCredentialSummary() {
-        try {
-            const result = await window.chrome.braveSkus.credential_summary('vpn.brave.software');
-            document.getElementById("credential_summary").innerHTML = result;
-        } catch(error) {
-            document.getElementById("credential_summary").innerHTML = error;
-        }
-    }
-
-    async function vpnReceipt() {
-        let receipt = sessionStorage.getItem('braveVpn.receipt');
-        let decoded = JSON.parse(atob(receipt));
-        document.getElementById("vpn_receipt").innerHTML = JSON.stringify(decoded);;
-    }
+<body>
+    <h1>API Test Page</h1>
+    <p>This page makes API calls to test the injected script behavior.</p>
     
-</script>
+    <button id="testButton">Click me to test setAttribute</button>
 
-<style>
-    button {
-        font-size: 24px;
-    }
-</style>
+    <script>
+        // Test Function.prototype.apply with String.fromCharCode
+        console.log("Testing String.fromCharCode.apply with a large array...");
+        const largeArray = new Array(5000).fill(65); // Array of 5000 'A' characters (ASCII code 65)
+        try {
+            const result = String.fromCharCode.apply(null, largeArray);
+            console.log("String.fromCharCode result:", result.slice(0, 50) + "...");
+        } catch (error) {
+            console.error("Error in String.fromCharCode.apply:", error);
+        }
 
+        // Test fetch API
+        console.log("Testing fetch API...");
+        fetch("https://jsonplaceholder.typicode.com/todos/1")
+            .then(response => response.json())
+            .then(data => console.log("Fetch result:", data))
+            .catch(error => console.error("Fetch error:", error));
+
+        // Test XMLHttpRequest
+        console.log("Testing XMLHttpRequest...");
+        const xhr = new XMLHttpRequest();
+        xhr.open("GET", "https://jsonplaceholder.typicode.com/todos/2", true);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                console.log("XMLHttpRequest result:", JSON.parse(xhr.responseText));
+            }
+        };
+        xhr.send();
+
+        // Test setAttribute on an element
+        console.log("Testing setAttribute...");
+        const button = document.getElementById("testButton");
+        button.setAttribute("sandbox", "allow-presentation allow-orientation-lock");
+
+        // Test insertRule with CSSStyleSheet
+        console.log("Testing CSSStyleSheet.insertRule...");
+        const styleSheet = document.styleSheets[0];
+        styleSheet.insertRule("body { background-color: lightblue; }", styleSheet.cssRules.length);
+    </script>
+</body>
 </html>
