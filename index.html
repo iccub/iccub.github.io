@@ -1,17 +1,26 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<button id="race">Race download vs deep link</button>
+<script>
+function triggerDownload() {
+  const blob = new Blob([new Uint8Array(64 * 1024)], {
+    type: "application/octet-stream"
+  });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "orion-race.bin";
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 2000);
+}
 
-<head>
-  <title>Redirecting to Another page in HTML</title>
-</head>
+document.getElementById("race").addEventListener("click", () => {
+  setTimeout(() => {
+    location.href = "maps://?q=Cupertino";
+  }, 150);
 
-<body>
-  <h3>
-    Redirecting to Another page in HTML
-  </h3>
-  <p>Click the below link to be redirected:
-    <a href="data://kagi.com/signin ,kagi is Down :( Go to attacker.com https://help.kagi.com/kagi/#" target="_blank">click here</a>
-  </p>
-</body>
-
-</html>
+  triggerDownload();
+});
+</script>
