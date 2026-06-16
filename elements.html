@@ -1,9 +1,103 @@
-<script>
-setInterval(() => {
-  history.replaceState({}, "", "/fake-" + Date.now());
-}, 50);
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>IDN Spoofing Awareness Demo</title>
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      max-width: 760px;
+      margin: 40px auto;
+      line-height: 1.5;
+    }
 
-setTimeout(() => {
-  location.href = "https://apple.com";
-}, 5000);
-</script>
+    .warning {
+      padding: 16px;
+      border: 2px solid #b45309;
+      background: #fff7ed;
+      border-radius: 8px;
+    }
+
+    .demo {
+      margin-top: 24px;
+      padding: 16px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
+    code {
+      background: #f3f4f6;
+      padding: 2px 5px;
+      border-radius: 4px;
+    }
+
+    a {
+      display: inline-block;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+  <h1>IDN Spoofing Awareness Demo</h1>
+
+  <div class="warning">
+    <strong>Training purpose only:</strong>
+    Internationalized Domain Names can contain Unicode characters that look similar
+    to ordinary Latin letters. Attackers may abuse this to create confusing links.
+  </div>
+
+  <div class="demo">
+    <h2>Example: Lookalike Characters</h2>
+
+    <p>
+      The following two strings may look similar at a glance:
+    </p>
+
+    <p>
+      Normal Latin text:
+      <code>example.test</code>
+    </p>
+
+    <p>
+      Mixed-script lookalike text:
+      <code>exаmple.test</code>
+    </p>
+
+    <p>
+      In the second version, the letter that looks like <code>a</code>
+      may be a Cyrillic character instead of a Latin one.
+    </p>
+  </div>
+
+  <div class="demo">
+    <h2>Safe Link Inspection Practice</h2>
+
+    <p>
+      Hover over this harmless local-only training link and inspect the browser’s
+      status bar:
+    </p>
+
+    <a href="http://localhost/idn-awareness-demo">
+      Training link: example.test
+    </a>
+
+    <p>
+      Real security lesson: do not rely only on what link text says. Check the
+      actual destination, certificate details, password manager behavior, and
+      whether the site is expected.
+    </p>
+  </div>
+
+  <div class="demo">
+    <h2>Defensive Checks</h2>
+
+    <ul>
+      <li>Watch for mixed scripts, such as Latin plus Cyrillic characters.</li>
+      <li>Use password managers; they usually match exact domains.</li>
+      <li>Check the real URL before entering credentials.</li>
+      <li>Consider browser or email gateway protections that flag IDN homographs.</li>
+      <li>Convert suspicious Unicode domains to Punycode before trusting them.</li>
+    </ul>
+  </div>
+</body>
+</html>
