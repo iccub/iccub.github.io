@@ -1,250 +1,191 @@
-<!DOCTYPE html>
-<!-- saved from url=(0070)file:///Users/michalbuczek/praca/kagi/browser/app-store-loop-test.html -->
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>App Store Loop Test</title>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Duo viewport width test</title>
+  <script>
+    (() => {
+      const params = new URLSearchParams(location.search);
+      const fit = ["auto", "contain", "cover"].includes(params.get("fit"))
+        ? params.get("fit") : "auto";
+      if (fit !== "auto") {
+        document.querySelector('meta[name="viewport"]').content += ", viewport-fit=" + fit;
+      }
+      document.documentElement.dataset.widthMode = params.get("width") === "percent" ? "percent" : "vw";
+    })();
+  </script>
   <style>
-    :root {
-      color-scheme: light dark;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: Canvas;
-      color: CanvasText;
+    html {
+      background: #ffd0d0;
+      color: #263238;
+      font: 18px/1.5 system-ui, sans-serif;
     }
-
     body {
       margin: 0;
-      min-height: 100vh;
-      display: grid;
-      place-items: center;
-      padding: 24px;
-      box-sizing: border-box;
+      width: 100vw;
+      min-width: 360px;
+      background: #eaf0f1;
     }
-
+    html[data-width-mode="percent"] body {
+      width: 100%;
+      min-width: 0;
+    }
     main {
-      width: min(640px, 100%);
+      width: calc(100% - 50px);
+      max-width: 515px;
+      margin: 0 auto;
+      padding: 24px 0 48px;
     }
-
-    h1 {
-      margin: 0 0 8px;
-      font-size: 28px;
-      line-height: 1.15;
+    h1 { font-size: 1.6rem; line-height: 1.2; }
+    h2 { font-size: 1.1rem; margin-top: 1.8rem; }
+    p { overflow-wrap: break-word; }
+    .ruler {
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      min-height: 80px;
+      padding: 12px;
+      border-left: 12px solid #006eb8;
+      border-right: 12px solid #d71920;
+      background: repeating-linear-gradient(90deg, #c2f7d1 0 19px, #9be7b0 19px 20px);
+      font-size: 14px;
+      font-weight: bold;
     }
-
-    p {
-      margin: 0 0 24px;
-      color: color-mix(in srgb, CanvasText 72%, Canvas 28%);
-      line-height: 1.45;
-    }
-
-    label {
-      display: block;
-      margin: 16px 0 6px;
-      font-weight: 600;
-    }
-
-    input,
-    select,
-    button {
+    .ruler span:last-child { text-align: right; }
+    label { display: block; margin: 12px 0; }
+    select, button {
+      box-sizing: border-box;
+      max-width: 100%;
+      padding: 9px;
       font: inherit;
     }
-
-    input,
-    select {
-      width: 100%;
-      box-sizing: border-box;
-      border: 1px solid color-mix(in srgb, CanvasText 24%, Canvas 76%);
-      border-radius: 6px;
-      padding: 10px 12px;
-      background: Canvas;
-      color: CanvasText;
+    select { display: block; width: 100%; }
+    button { cursor: pointer; }
+    pre {
+      padding: 12px;
+      border: 1px solid #9baeb4;
+      background: white;
+      font: 13px/1.6 ui-monospace, monospace;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
     }
-
-    .row {
+    .sample { text-align: center; }
+    .sample-art {
       display: grid;
-      grid-template-columns: 1fr 160px;
-      gap: 12px;
-      align-items: end;
+      place-items: center;
+      aspect-ratio: 2 / 1;
+      border-radius: 50%;
+      background: #fff;
+      color: #006eb8;
+      font-size: 2rem;
+      font-weight: bold;
     }
-
-    .actions {
-      display: flex;
-      gap: 12px;
-      margin-top: 24px;
-    }
-
-    button {
-      border: 0;
-      border-radius: 6px;
-      padding: 10px 16px;
-      cursor: pointer;
-    }
-
-    #start {
-      background: #0a7aff;
-      color: white;
-    }
-
-    #stop {
-      background: color-mix(in srgb, CanvasText 12%, Canvas 88%);
-      color: CanvasText;
-    }
-
-    button:disabled {
-      cursor: default;
-      opacity: 0.5;
-    }
-
-    #status {
-      margin-top: 18px;
-      min-height: 22px;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      font-size: 13px;
-    }
-
-    iframe {
+    .safe-area-probe {
       position: absolute;
-      width: 1px;
-      height: 1px;
-      border: 0;
-      opacity: 0;
+      visibility: hidden;
       pointer-events: none;
-    }
-
-    @media (max-width: 520px) {
-      .row,
-      .actions {
-        display: block;
-      }
-
-      .actions button {
-        width: 100%;
-        margin-top: 10px;
-      }
+      padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px)
+               env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px);
     }
   </style>
 </head>
 <body>
+  <div class="ruler"><span>LEFT EDGE</span><span>RIGHT EDGE<br>Red border should be visible</span></div>
   <main>
-    <h1>App Store Loop Test</h1>
-    <p>Press Start to repeatedly trigger an App Store URL. Keep the interval reasonably high so you can return to the browser and stop it.</p>
+    <h1>Duo viewport width test</h1>
+    <p>Open the same URL in Firefox and Safari on collapsed Duo. Compare the red right border,
+      the illustration width, and the number of lines in the sample paragraph. Rotate the device too.</p>
+    <p>The default matches the relevant Wykop layout: <code>body { width: 100vw; min-width: 360px }</code>,
+      with centered content at <code>calc(100% - 50px)</code> and a maximum width of 515px.</p>
 
-    <label for="url">App Store URL</label>
-    <input id="url" value="itms-apps://itunes.apple.com/app/id1484498200" spellcheck="false">
-
-    <div class="row">
-      <div>
-        <label for="mode">Open mode</label>
-        <select id="mode">
-          <option value="location">Top-level navigation</option>
-          <option value="iframe">Hidden iframe</option>
-          <option value="anchor">Synthetic anchor click</option>
+    <form method="get">
+      <label>Viewport fit
+        <select name="fit" id="fit">
+          <option value="auto">Default (no viewport-fit)</option>
+          <option value="contain">viewport-fit=contain</option>
+          <option value="cover">viewport-fit=cover</option>
         </select>
-      </div>
+      </label>
+      <label>Body width
+        <select name="width" id="width">
+          <option value="vw">100vw — reproduction</option>
+          <option value="percent">100% — comparison</option>
+        </select>
+      </label>
+      <button type="submit">Load configuration</button>
+    </form>
 
-      <div>
-        <label for="interval">Interval, ms</label>
-        <input id="interval" type="number" min="500" step="500" value="2000">
-      </div>
-    </div>
+    <section class="sample">
+      <h2>Compare wrapping</h2>
+      <div class="sample-art">Sample image</div>
+      <p>This paragraph should fit comfortably beside the vertical system bar. If the browser
+        uses the entire device width for viewport units, the illustration becomes wider and
+        this text wraps onto fewer lines. Some content may extend underneath the system bar.</p>
+      <button type="button">Sample action button</button>
+    </section>
 
-    <div class="actions">
-      <button id="start" type="button">Start</button>
-      <button id="stop" type="button" disabled="">Stop</button>
-      <button id="once" type="button">Open Once</button>
-    </div>
-
-    <div id="status" role="status" aria-live="polite">Idle</div>
+    <h2>Live measurements (CSS pixels)</h2>
+    <p>These update when the viewport changes. Insets of zero can be normal when the browser
+      reserves the safe area outside the page.</p>
+    <pre id="metrics">Waiting for measurements…</pre>
+    <h2>User agent</h2>
+    <pre id="user-agent"></pre>
+    <p>Scroll to this point to compare toolbar collapse and expansion. The page uses no fixed
+      overlays or external resources.</p>
   </main>
-
-  <iframe id="opener" title="App Store opener" src="./App Store Loop Test_files/saved_resource.html"></iframe>
-
+  <div class="ruler"><span>BOTTOM LEFT</span><span>BOTTOM RIGHT</span></div>
+  <div class="safe-area-probe" aria-hidden="true"></div>
   <script>
-    const urlInput = document.getElementById("url");
-    const modeInput = document.getElementById("mode");
-    const intervalInput = document.getElementById("interval");
-    const startButton = document.getElementById("start");
-    const stopButton = document.getElementById("stop");
-    const onceButton = document.getElementById("once");
-    const status = document.getElementById("status");
-    const opener = document.getElementById("opener");
-
-    let timer = 0;
-    let count = 0;
-
-    function appStoreUrl() {
-      return urlInput.value.trim();
-    }
-
-    function intervalMs() {
-      return Math.max(Number(intervalInput.value) || 2000, 500);
-    }
-
-    function setRunning(isRunning) {
-      startButton.disabled = isRunning;
-      stopButton.disabled = !isRunning;
-      onceButton.disabled = isRunning;
-      urlInput.disabled = isRunning;
-      modeInput.disabled = isRunning;
-      intervalInput.disabled = isRunning;
-    }
-
-    function openAppStore() {
-      const url = appStoreUrl();
-      const mode = modeInput.value;
-
-      if (!url) {
-        stopLoop();
-        status.textContent = "Stopped: URL is empty";
-        return;
+    (() => {
+      const params = new URLSearchParams(location.search);
+      const fit = params.get("fit");
+      document.getElementById("fit").value = ["contain", "cover"].includes(fit) ? fit : "auto";
+      document.getElementById("width").value = document.documentElement.dataset.widthMode;
+      document.getElementById("user-agent").textContent = navigator.userAgent;
+      const round = value => typeof value === "number" ? Math.round(value * 100) / 100 : "n/a";
+      let frame;
+      function update() {
+        frame = undefined;
+        const body = document.body.getBoundingClientRect();
+        const main = document.querySelector("main").getBoundingClientRect();
+        const safe = getComputedStyle(document.querySelector(".safe-area-probe"));
+        const viewport = window.visualViewport;
+        const measurements = {
+          "body CSS width": document.documentElement.dataset.widthMode === "vw" ? "100vw" : "100%",
+          "window.innerWidth": window.innerWidth,
+          "html.clientWidth": document.documentElement.clientWidth,
+          "html.scrollWidth": document.documentElement.scrollWidth,
+          "body width": round(body.width),
+          "body right edge": round(body.right),
+          "main width": round(main.width),
+          "visualViewport.width": round(viewport?.width),
+          "visualViewport.height": round(viewport?.height),
+          "visualViewport.scale": round(viewport?.scale),
+          "safe top": safe.paddingTop,
+          "safe right": safe.paddingRight,
+          "safe bottom": safe.paddingBottom,
+          "safe left": safe.paddingLeft,
+          "viewport meta": document.querySelector('meta[name="viewport"]').content
+        };
+        const text = Object.entries(measurements).map(([key, value]) => key + ": " + value).join("\n");
+        const output = document.getElementById("metrics");
+        if (output.textContent !== text) output.textContent = text;
       }
-
-      count += 1;
-      status.textContent = `Attempt ${count}: ${mode} -> ${url}`;
-
-      if (mode === "iframe") {
-        opener.src = "about:blank";
-        setTimeout(() => {
-          opener.src = url;
-        }, 0);
-        return;
+      function schedule() {
+        if (frame === undefined) frame = requestAnimationFrame(update);
       }
-
-      if (mode === "anchor") {
-        const link = document.createElement("a");
-        link.href = url;
-        link.rel = "noreferrer";
-        document.body.appendChild(link);
-        link.click();
-        link.remove();
-        return;
-      }
-
-      window.location.href = url;
-    }
-
-    function startLoop() {
-      stopLoop();
-      count = 0;
-      setRunning(true);
-      openAppStore();
-      timer = window.setInterval(openAppStore, intervalMs());
-    }
-
-    function stopLoop() {
-      if (timer) {
-        window.clearInterval(timer);
-        timer = 0;
-      }
-      setRunning(false);
-      status.textContent = count ? `Stopped after ${count} attempt(s)` : "Idle";
-    }
-
-    startButton.addEventListener("click", startLoop);
-    stopButton.addEventListener("click", stopLoop);
-    onceButton.addEventListener("click", openAppStore);
-    window.addEventListener("pagehide", stopLoop);
+      window.addEventListener("resize", schedule);
+      window.addEventListener("orientationchange", schedule);
+      window.addEventListener("pageshow", schedule);
+      window.visualViewport?.addEventListener("resize", schedule);
+      const observer = new ResizeObserver(schedule);
+      observer.observe(document.documentElement);
+      observer.observe(document.body);
+      schedule();
+    })();
   </script>
-
-
-</body></html>
+</body>
+</html>
